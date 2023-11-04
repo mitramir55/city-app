@@ -148,7 +148,10 @@ if input_sent and button_2:
             The topic representation is {topic_rep}.\n
             """)
 
+import plotly.offline as pyo
+fig = bertopic_m.visualize_topics()
+# Export the graph to HTML
+pyo.plot(fig, filename="viz.html")
 
-bertopic_m.visualize_topics()
 #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
-st.components.v1.iframe(bertopic_m.visualize_topics(), height=600)
+st.components.v1.iframe("viz.html", height=600)
