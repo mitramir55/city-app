@@ -90,7 +90,7 @@ def read_prompt_df(first_n):
 # single sentence 
 input_sent = st.text_input("Please enter your sentence in the box bellow:", "")
 button_1 = st.button('analyze Emotion', key='butt1')
-button_2 = st.button('analyze Topic', key='butt1')
+button_2 = st.button('analyze Topic', key='butt2')
 
 # sentiment analysis
 if input_sent and button_1:
