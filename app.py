@@ -143,7 +143,7 @@ if input_sent and button_2:
     chosen_topic, confidence = predict_label(input_sent)
     topic_name, topic_rep = get_topic_rep_and_name(chosen_topic)
 
-    st.write("""
+    st.write(f"""
             The topic chosen for this sentence is topic number {chosen_topic}.\n
             The topic representation is {topic_rep}.\n
             """)
@@ -151,4 +151,4 @@ if input_sent and button_2:
 
 bertopic_m.visualize_topics()
 #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
-st.components.v1.iframe("viz.html", height=600)
+st.components.v1.iframe(bertopic_m.visualize_topics(), height=600)
