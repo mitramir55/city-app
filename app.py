@@ -45,6 +45,8 @@ st.title("Try our algorithm")
 # single text
 st.subheader("Single sentence analysis")
 
+st.write(f'path is = {Path.cwd()}')
+
 def bertopic_model():
 
     loaded_model = BERTopic.load("city-app\BERTopic")
