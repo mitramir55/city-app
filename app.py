@@ -151,7 +151,7 @@ if input_sent and button_2:
 import plotly.offline as pyo
 fig = bertopic_m.visualize_topics()
 # Export the graph to HTML
-pyo.plot(fig, filename="viz.html")
+pyo.plot(fig, filename="/mount/src/city-app/viz.html")
 
 #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
-st.components.v1.iframe("viz.html", height=600)
+st.components.v1.iframe("/mount/src/city-app/viz.html", height=600)
