@@ -49,11 +49,53 @@ st.write(f'path is = {Path.cwd()}')
 
 def bertopic_model():
 
-    loaded_model = BERTopic.load("city-app\BERTopic")
+    loaded_model = BERTopic.load("city-app\\BERTopic")
+    return loaded_model
 
-    loaded_model.visualize_topics()
-    #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
-    st.components.v1.iframe(iframe_url="viz.html", height=600)
+
+
+def predict_label(input_sent):
+    # do the prediction
+    predicted_topics, predicted_probs = bertopic_m.transform(documents=[input_sent])
+    chosen_topic = predicted_topics[0]
+    confidence = predicted_probs[0]
+    return chosen_topic, confidence
+
+
+def get_topic_rep_and_name(chosen_topic):
+
+    topic_df = bertopic_m.get_topic_info()#.head(30)
+    topic_row_info = topic_df[topic_df.loc[:, 'Topic']==chosen_topic]
+    topic_name = [i for i in topic_row_info.Name.values][0]
+    topic_rep = [i for i in topic_row_info.Representation.values][0]
+
+    return topic_name, topic_rep
+
+
+
+
+# single sentence 
+input_sent = st.text_input("Please enter your sentence in the box bellow:", "")
+button_1 = st.button('analyze', key='butt1')
+
+
+
+###### Topic modeling
+bertopic_m = bertopic_model()
+
+
+chosen_topic, confidence = predict_label(input_sent)
+topic_name, topic_rep = get_topic_rep_and_name(chosen_topic)
+
+st.write("""
+         The topic chosen for this sentence is topic number {chosen_topic}.\n
+        The topic representation is {topic_rep}.\n
+         
+         """)
+
+bertopic_m.visualize_topics()
+#<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
+st.components.v1.iframe(iframe_url="viz.html", height=600)
 
     
 bertopic_model()
