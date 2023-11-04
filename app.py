@@ -3,8 +3,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# BERTopic
-from bertopic import BERTopic
 
 # AI app
 from pathlib import Path
@@ -131,6 +129,8 @@ st.write("GPT-4 Count = ", summary_result)
 
 topic_modeling_bool = False
 if topic_modeling_bool:
+    # BERTopic
+    from bertopic import BERTopic
     ###### Topic modeling
     bertopic_m = bertopic_model()
 
