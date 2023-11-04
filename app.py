@@ -136,9 +136,6 @@ from bertopic import BERTopic
 ###### Topic modeling
 bertopic_m = bertopic_model()
 
-bertopic_m.visualize_topics()
-#<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
-st.components.v1.iframe(iframe_url="viz.html", height=600)
 
 
 if input_sent and button_2:
@@ -152,3 +149,6 @@ if input_sent and button_2:
             """)
 
 
+bertopic_m.visualize_topics()
+#<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
+st.components.v1.iframe("viz.html", height=600)
