@@ -49,10 +49,8 @@ st.write(f'path is = {Path.cwd()}')
 
 def bertopic_model():
 
-    loaded_model = BERTopic.load("city-app\\BERTopic")
+    loaded_model = BERTopic.load("/mount/src/city-app/BERTopic")
     return loaded_model
-
-
 
 def predict_label(input_sent):
     # do the prediction
@@ -60,7 +58,6 @@ def predict_label(input_sent):
     chosen_topic = predicted_topics[0]
     confidence = predicted_probs[0]
     return chosen_topic, confidence
-
 
 def get_topic_rep_and_name(chosen_topic):
 
@@ -73,29 +70,84 @@ def get_topic_rep_and_name(chosen_topic):
 
 
 
+def read_prompt_df():
+    """
+    reads the data that will help us with creating the prompt
+    """
+
+    url = "https://raw.githubusercontent.com/mitramir55/Advancing-smart-cities-with-nlp/main/Dataset/split%2020-80/training_set.csv"
+    df = pd.read_csv(url)
+
+    labels_to_int = {'anger': 0, 'joy': 1, 'optimism': 2, 'sadness': 3}
+    int_to_label = {v:k for (k, v) in labels_to_int.items()}
+    def emotion_labeler(label_id):
+        return int_to_label[label_id]
+
+    # build the textual label
+    df.loc[:, 'emotion'] = df.loc[:, 'label'].apply(lambda x: emotion_labeler(x))
+
+    return df
+
 
 # single sentence 
 input_sent = st.text_input("Please enter your sentence in the box bellow:", "")
 button_1 = st.button('analyze', key='butt1')
 
+# sentiment analysis
+
+# read the dataset for sentiment analysis as the few-shot input
+df = read_prompt_df()
 
 
-###### Topic modeling
-bertopic_m = bertopic_model()
+prompt_prefix_1 = """
+You are a helpful assistant that classifies text as having the following 
+emotions: anger, joy, optimism, and sadness\n"""
 
 
-chosen_topic, confidence = predict_label(input_sent)
-topic_name, topic_rep = get_topic_rep_and_name(chosen_topic)
-
-st.write("""
-         The topic chosen for this sentence is topic number {chosen_topic}.\n
-        The topic representation is {topic_rep}.\n
-         
-         """)
-
-bertopic_m.visualize_topics()
-#<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
-st.components.v1.iframe(iframe_url="viz.html", height=600)
-
+# build the prompt
+prompt_prefix_2 = ""
+for i in range(len(df)):
+    prompt_prefix_2 += (f"Text is: {df.loc[i, 'preprocessed']} - " +\
+           f"Emotion is: {df.loc[i, 'emotion']} \n")
     
-bertopic_model()
+
+prompt_prefix = prompt_prefix_1 + prompt_prefix_2
+
+# create kernel for semantic kernel
+kernel = sk.Kernel()
+
+# Prepare OpenAI service using credentials stored in the `.env` file
+api_key, org_id = sk.openai_settings_from_dot_env()
+kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
+
+
+
+prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "Emotion: "
+classifier = kernel.create_semantic_function(prompt)
+
+# Summarize the list
+summary_result = classifier(prompt).result
+st.write("GPT-4 Count = ", summary_result)
+
+topic_modeling_bool = False
+if topic_modeling_bool:
+    ###### Topic modeling
+    bertopic_m = bertopic_model()
+
+    bertopic_m.visualize_topics()
+    #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
+    st.components.v1.iframe(iframe_url="viz.html", height=600)
+
+
+    if input_sent and button_1:
+
+        chosen_topic, confidence = predict_label(input_sent)
+        topic_name, topic_rep = get_topic_rep_and_name(chosen_topic)
+
+        st.write("""
+                The topic chosen for this sentence is topic number {chosen_topic}.\n
+                The topic representation is {topic_rep}.\n
+                
+                """)
+
+
