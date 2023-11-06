@@ -40,7 +40,7 @@ st.markdown(link, unsafe_allow_html=True)
 image = Image.open( 'static files/pic_overall_approach.png')
 
 #displaying the image on streamlit app
-st.image(image, caption='Enter any caption here')
+st.image(image, caption='Overall approach')
 
 
 st.title("Try our algorithm")
