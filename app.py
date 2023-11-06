@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
-
+import os
 
 # AI app
 from pathlib import Path
@@ -126,25 +126,11 @@ if input_sent and button_1:
     kernel = sk.Kernel()
 
     # Prepare OpenAI service using credentials stored in the `.env` file
-    # api_key, org_id = sk.openai_settings_from_dot_env()
-    # kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
-
-
-    import os
-    from decouple import config  # Import the config function from decouple
-
-    # Define the path to your .env file
-    env_file_path = BASE_FOLDER + ".env"  # Replace with the actual path to your .env file
-
-    # Load the environment variables from the .env file
-    config.read(env_file_path)
-
-    # Retrieve the values of api_key and org_id from the environment variables
-    api_key = config("API_KEY")
-    org_id = config("ORG_ID")
-
-    # Now you can use the api_key and org_id in your code
+    os.cd(os.path.dirname(BASE_FOLDER))
+    
+    api_key, org_id = sk.openai_settings_from_dot_env()
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
+
 
 
     prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "Emotion: "
