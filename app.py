@@ -139,15 +139,6 @@ if input_sent and button_1:
     st.write("GPT-4 few-shot model says this represents ", summary_result)
 
  # Topic modeling ----------------------------------   
-#import plotly.offline as pyo
-# fig = bertopic_m.visualize_topics()
-# Export the graph to HTML
-# pyo.plot(fig, filename="C:\Users\mitra\city-app\BERTopic")
-vis_path = BASE_FOLDER + "static files/viz.html"
-HtmlFile = open(vis_path, 'r', encoding='utf-8')
-source_code = HtmlFile.read() 
-components.html(source_code, height = 600)
-
 
 
 # BERTopic
@@ -166,6 +157,20 @@ if input_sent and button_2:
             The topic chosen for this sentence is topic number {chosen_topic}.\n
             The topic representation is {topic_rep}.\n
             """)
+
+
+
+
+
+#import plotly.offline as pyo
+# fig = bertopic_m.visualize_topics()
+# Export the graph to HTML
+# pyo.plot(fig, filename="C:\Users\mitra\city-app\BERTopic")
+vis_path = BASE_FOLDER + "static files/viz.html"
+HtmlFile = open(vis_path, 'r', encoding='utf-8')
+source_code = HtmlFile.read() 
+components.html(source_code, height = 600)
+
 
 
 
