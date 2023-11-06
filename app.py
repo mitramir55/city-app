@@ -43,7 +43,7 @@ st.title("Try our algorithm")
 # single text
 st.subheader("Single sentence analysis")
 
-st.write(f'path is = {Path.cwd()}')
+# st.write(f'path is = {Path.cwd()}')
 
 def bertopic_model():
 
@@ -151,7 +151,7 @@ if input_sent and button_2:
 import plotly.offline as pyo
 fig = bertopic_m.visualize_topics()
 # Export the graph to HTML
-pyo.plot(fig, filename="/mount/src/city-app/viz.html")
+# pyo.plot(fig, filename="C:\Users\mitra\city-app\BERTopic")
 
 #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
 st.components.v1.iframe("/mount/src/city-app/viz.html", height=600)
