@@ -37,7 +37,7 @@ link = 'If you use this package, please cite it as: ....'
 st.markdown(link, unsafe_allow_html=True)
 
 #opening the image
-image = Image.open(BASE_FOLDER + 'static files/pic_overall_approachpng.png')
+image = Image.open(BASE_FOLDER + 'static files/pic_overall_approach.png')
 
 #displaying the image on streamlit app
 st.image(image, caption='Enter any caption here')
