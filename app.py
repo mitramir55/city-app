@@ -43,6 +43,9 @@ image = Image.open(BASE_FOLDER + 'static files/pic_overall_approach.png')
 st.image(image, caption='Overall approach')
 
 
+st.markdown(f"![Alt Text]({BASE_FOLDER + 'static files/pic_overall_approach.png'})")
+
+
 st.title("Try our algorithm")
 # st.caption("Disclaimer: This website is provided solely for the purpose of testing this package. As a result, it can handle a few thousand (up to 10,000) one-line sentences or a few hundred paragraphs in each file.")
 
