@@ -149,9 +149,16 @@ if input_sent and button_2:
             """)
 
 import plotly.offline as pyo
-fig = bertopic_m.visualize_topics()
+# fig = bertopic_m.visualize_topics()
 # Export the graph to HTML
 # pyo.plot(fig, filename="C:\Users\mitra\city-app\BERTopic")
+vis_path = "/mount/src/city-app/viz.html"
+import streamlit.components.v1 as components
+HtmlFile = open(vis_path, 'r', encoding='utf-8')
+source_code = HtmlFile.read() 
+print(source_code)
+components.html(source_code)
+
 
 #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
-st.components.v1.iframe("/mount/src/city-app/viz.html", height=600)
+# st.components.v1.iframe(vis_path, height=600)
