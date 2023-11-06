@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from PIL import Image
 
 
 # AI app
@@ -10,11 +11,12 @@ import json
 from collections import defaultdict
 import semantic_kernel as sk
 from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
+import streamlit.components.v1 as components
 
 
 # default params
 ALLOWED_EXTENSIONS = {'csv', 'xlsx'}
-
+BASE_FOLDER = "/mount/src/city-app/"
 
 # create the app
 st.title('City of Calgary Tweet Assessment')
@@ -34,6 +36,12 @@ st.markdown(link, unsafe_allow_html=True)
 link = 'If you use this package, please cite it as: ....'
 st.markdown(link, unsafe_allow_html=True)
 
+#opening the image
+image = Image.open(BASE_FOLDER + 'static files/pic_overall_approachpng.png')
+
+#displaying the image on streamlit app
+st.image(image, caption='Enter any caption here')
+
 
 st.title("Try our algorithm")
 # st.caption("Disclaimer: This website is provided solely for the purpose of testing this package. As a result, it can handle a few thousand (up to 10,000) one-line sentences or a few hundred paragraphs in each file.")
@@ -47,7 +55,7 @@ st.subheader("Single sentence analysis")
 
 def bertopic_model():
 
-    loaded_model = BERTopic.load("/mount/src/city-app/BERTopic")
+    loaded_model = BERTopic.load(BASE_FOLDER + "BERTopic")
     return loaded_model
 
 def predict_label(input_sent):
@@ -131,6 +139,18 @@ if input_sent and button_1:
     summary_result = classifier(prompt).result
     st.write("GPT-4 few-shot model says this represents ", summary_result)
 
+ # Topic modeling ----------------------------------   
+#import plotly.offline as pyo
+# fig = bertopic_m.visualize_topics()
+# Export the graph to HTML
+# pyo.plot(fig, filename="C:\Users\mitra\city-app\BERTopic")
+vis_path = BASE_FOLDER + "static files/viz.html"
+HtmlFile = open(vis_path, 'r', encoding='utf-8')
+source_code = HtmlFile.read() 
+components.html(source_code, height = 600)
+
+
+
 # BERTopic
 from bertopic import BERTopic
 ###### Topic modeling
@@ -148,16 +168,7 @@ if input_sent and button_2:
             The topic representation is {topic_rep}.\n
             """)
 
-import plotly.offline as pyo
-# fig = bertopic_m.visualize_topics()
-# Export the graph to HTML
-# pyo.plot(fig, filename="C:\Users\mitra\city-app\BERTopic")
-vis_path = "/mount/src/city-app/viz.html"
-import streamlit.components.v1 as components
-HtmlFile = open(vis_path, 'r', encoding='utf-8')
-source_code = HtmlFile.read() 
-print(source_code)
-components.html(source_code)
+
 
 
 #<iframe src="viz.html" style="width:1000px; height: 680px; border: 0px;""></iframe>
