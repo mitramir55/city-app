@@ -26,8 +26,7 @@ st.write("""
 In numerous cities, population expansion and technological advancements necessitate proactive modernization and integration of technology. However, the existing bureaucratic structure often hinders local officials' efforts to effectively address and monitor residents' needs and enhance the city accordingly. Understanding what people find important and useful can be inferred from their posts on social media. Twitter, as one of the most popular social media platforms, provides us with valuable data that, with the right tools and analysis, can provide insights into the performance of urban services and residents' perception of them. 
 In this study, we used the city of Calgary as an exemplar to gather tweets and analyze topics relating to city development, urban planning, and minorities.
  Natural language processing (NLP) techniques were used and developed to preprocess stored tweets, classify the emotions, and identify the topics present in the dataset to eventually provide a set of topics with the prevalent emotion in that topic. 
-We utilized a variety of methods to analyze the collected data. BERTopic for topic modeling and few-shot learning using Setfit for emotion analysis outperformed the others. Hence, we identify issues related to city development, senior citizens, taxes, and unemployment using these methods, and we demonstrate how delving into these analyses can improve urban planning.
-         
+We utilized a variety of methods to analyze the collected data. BERTopic for topic modeling and few-shot learning using Setfit for emotion analysis outperformed the others. Hence, we identify issues related to city development, senior citizens, taxes, and unemployment using these methods, and we demonstrate how delving into these analyses can improve urban planning.     
 """)
 
 link = 'Please visit our [GitHub](https://github.com/mitramir55/Advancing-smart-cities-with-nlp) if you want to see the code or make any contributions.'
@@ -128,7 +127,16 @@ if input_sent and button_1:
     # Prepare OpenAI service using credentials stored in the `.env` file
     # os.cd(os.path.dirname(BASE_FOLDER))
 
-    api_key, org_id = sk.openai_settings_from_dot_env()
+    # api_key, org_id = sk.openai_settings_from_dot_env()
+
+    import os
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+    api_key = os.getenv('GCP_PROJECT_ID')
+    org_id = None
+
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
 
     prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "Emotion: "
@@ -157,9 +165,6 @@ if input_sent and button_2:
             The topic chosen for this sentence is topic number {chosen_topic}.\n
             The topic representation is {topic_rep}.\n
             """)
-
-
-
 
 
 #import plotly.offline as pyo
