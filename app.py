@@ -127,10 +127,15 @@ if input_sent and button_1:
     # Prepare OpenAI service using credentials stored in the `.env` file
     # os.cd(os.path.dirname(BASE_FOLDER))
 
+    # api_key, org_id = sk.openai_settings_from_dot_env()
+
     import os
     from dotenv import load_dotenv
-    load_dotenv()
-    api_key, org_id = sk.openai_settings_from_dot_env()
+
+    load_dotenv(dotenv_path=BASE_FOLDER + '.env')
+
+    api_key = os.getenv('OPENAI_API_KEY')
+    org_id = None
 
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
 
