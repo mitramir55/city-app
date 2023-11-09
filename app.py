@@ -143,7 +143,7 @@ if input_sent and button_1:
     classifier = kernel.create_semantic_function(prompt)
 
     # Summarize the list
-    summary_result = classifier(prompt).result
+    summary_result = classifier(prompt)
     st.write("GPT-4 few-shot model says this represents ", summary_result)
 
  # Topic modeling ----------------------------------   
