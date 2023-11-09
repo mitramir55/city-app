@@ -109,14 +109,14 @@ if input_sent and button_1:
 
     prompt_prefix_1 = """
     You are a helpful assistant that classifies text as having the following 
-    emotions: anger, joy, optimism, and sadness\n"""
+    emotions: anger, joy, optimism, and sadness.\n"""
 
 
     # build the prompt
     prompt_prefix_2 = ""
     for i in range(len(df)):
-        prompt_prefix_2 += (f"Text is: {df.loc[i, 'preprocessed']} - " +\
-            f"Emotion is: {df.loc[i, 'emotion']} \n")
+        prompt_prefix_2 += (f"Text: '{df.loc[i, 'preprocessed']}' - " +\
+            f"Emotion: '{df.loc[i, 'emotion']}' \n")
         
 
     prompt_prefix = prompt_prefix_1 + prompt_prefix_2
@@ -143,7 +143,7 @@ if input_sent and button_1:
     classifier = kernel.create_semantic_function(prompt)
 
     # Summarize the list
-    summary_result = classifier(prompt).result
+    summary_result = classifier(prompt)
     st.write("GPT-4 few-shot model says this represents ", summary_result)
 
  # Topic modeling ----------------------------------   
