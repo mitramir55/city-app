@@ -127,15 +127,10 @@ if input_sent and button_1:
     # Prepare OpenAI service using credentials stored in the `.env` file
     # os.cd(os.path.dirname(BASE_FOLDER))
 
-    # api_key, org_id = sk.openai_settings_from_dot_env()
-
     import os
     from dotenv import load_dotenv
-
     load_dotenv()
-
-    api_key = os.getenv('OPENAI_API_KEY')
-    org_id = None
+    api_key, org_id = sk.openai_settings_from_dot_env()
 
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
 
@@ -143,7 +138,7 @@ if input_sent and button_1:
     classifier = kernel.create_semantic_function(prompt)
 
     # Summarize the list
-    summary_result = classifier(prompt)
+    summary_result = classifier(prompt).result
     st.write("GPT-4 few-shot model says this represents ", summary_result)
 
  # Topic modeling ----------------------------------   
