@@ -126,12 +126,10 @@ if input_sent and button_1:
     kernel = sk.Kernel()
 
     # Prepare OpenAI service using credentials stored in the `.env` file
-    os.cd(os.path.dirname(BASE_FOLDER))
-    
+    # os.cd(os.path.dirname(BASE_FOLDER))
+
     api_key, org_id = sk.openai_settings_from_dot_env()
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
-
-
 
     prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "Emotion: "
     classifier = kernel.create_semantic_function(prompt)
