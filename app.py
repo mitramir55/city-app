@@ -134,7 +134,7 @@ if input_sent and button_1:
 
     load_dotenv()
 
-    api_key = os.getenv('GCP_PROJECT_ID')
+    api_key = os.getenv('OPENAI_API_KEY')
     org_id = None
 
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
