@@ -6,9 +6,6 @@ from PIL import Image
 import os
 
 # AI app
-from pathlib import Path
-import json
-from collections import defaultdict
 import semantic_kernel as sk
 from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
 import streamlit.components.v1 as components
@@ -44,8 +41,6 @@ st.image(image, caption='Overall approach')
 st.title("Try our algorithm")
 # st.caption("Disclaimer: This website is provided solely for the purpose of testing this package. As a result, it can handle a few thousand (up to 10,000) one-line sentences or a few hundred paragraphs in each file.")
 
-
-
 # single text
 st.subheader("Single sentence analysis")
 
@@ -71,8 +66,6 @@ def get_topic_rep_and_name(chosen_topic):
     topic_rep = [i for i in topic_row_info.Representation.values][0]
 
     return topic_name, topic_rep
-
-
 
 def read_prompt_df(first_n):
     """
@@ -139,7 +132,7 @@ if input_sent and button_1:
 
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
 
-    prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "Emotion: "
+    prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "what is the Emotion: "
     classifier = kernel.create_semantic_function(prompt)
 
     # Summarize the list
@@ -153,8 +146,6 @@ if input_sent and button_1:
 from bertopic import BERTopic
 ###### Topic modeling
 bertopic_m = bertopic_model()
-
-
 
 if input_sent and button_2:
 
