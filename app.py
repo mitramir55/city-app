@@ -5,7 +5,6 @@ import numpy as np
 from PIL import Image
 import os
 import openai
-from /mount/src/city-app/config import OPENAI_API_KEY
 
 
 
@@ -128,6 +127,9 @@ if input_sent and button_1:
 
     import os
     from dotenv import load_dotenv
+    with open('/mount/src/city-app/config.txt') as f:
+        api_key = f.read()
+        print(api_key)
 
     load_dotenv(dotenv_path= '/mount/src/city-app/.env')
 
@@ -135,7 +137,7 @@ if input_sent and button_1:
     org_id = None
     print('api_key = ', api_key)
 
-    kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", OPENAI_API_KEY, org_id))
+    kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
 
     prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "what is the Emotion: "
     classifier = kernel.create_semantic_function(prompt)
