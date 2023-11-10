@@ -45,7 +45,9 @@ st.title("Try our algorithm")
 # single text
 st.subheader("Single sentence analysis")
 
-# st.write(f'path is = {Path.cwd()}')
+import Path
+st.write(f'path is = {Path.cwd()}')
+st.write('the path to the file ', os.path.abspath(".env"))
 
 def bertopic_model():
 
@@ -117,6 +119,7 @@ if input_sent and button_1:
     # create kernel for semantic kernel
     kernel = sk.Kernel()
 
+    print()
     # Prepare OpenAI service using credentials stored in the `.env` file
     os.cd(os.path.dirname(BASE_FOLDER))
 
