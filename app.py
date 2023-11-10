@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 import os
+import openai
 
 # AI app
 import semantic_kernel as sk
@@ -125,6 +126,7 @@ if input_sent and button_1:
     import os
     from dotenv import load_dotenv
 
+    openai.api_key_path = BASE_FOLDER + '.env'
     load_dotenv(dotenv_path=BASE_FOLDER + '.env')
 
     api_key = os.getenv('OPENAI_API_KEY')
