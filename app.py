@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 import os
 import openai
-from config import OPENAI_API_KEY
+from ./config import OPENAI_API_KEY
 
 
 
