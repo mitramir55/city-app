@@ -119,7 +119,7 @@ if input_sent and button_1:
 
     print()
     # Prepare OpenAI service using credentials stored in the `.env` file
-    os.cd(os.path.dirname(BASE_FOLDER))
+    #os.cd(os.path.dirname(BASE_FOLDER))
 
     # api_key, org_id = sk.openai_settings_from_dot_env()
 
