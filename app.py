@@ -45,8 +45,6 @@ st.title("Try our algorithm")
 # single text
 st.subheader("Single sentence analysis")
 
-import Path
-st.write(f'path is = {Path.cwd()}')
 st.write('the path to the file ', os.path.abspath(".env"))
 
 def bertopic_model():
