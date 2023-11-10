@@ -5,6 +5,9 @@ import numpy as np
 from PIL import Image
 import os
 import openai
+from config import OPENAI_API_KEY
+
+
 
 # AI app
 import semantic_kernel as sk
@@ -132,7 +135,7 @@ if input_sent and button_1:
     org_id = None
     print('api_key = ', api_key)
 
-    kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
+    kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", OPENAI_API_KEY, org_id))
 
     prompt = f"{prompt_prefix}\n" + f"Text is: {input_sent} - " + "what is the Emotion: "
     classifier = kernel.create_semantic_function(prompt)
@@ -143,7 +146,7 @@ if input_sent and button_1:
 
 
 
-    openai.api_key_path = '/mount/src/city-app/.env'
+    # openai.api_key_path = '/mount/src/city-app/.env'
  # Topic modeling ----------------------------------   
 
 
