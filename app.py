@@ -119,23 +119,22 @@ if input_sent and button_1:
     # create kernel for semantic kernel
     kernel = sk.Kernel()
 
-    print()
     # Prepare OpenAI service using credentials stored in the `.env` file
     #os.cd(os.path.dirname(BASE_FOLDER))
 
     # api_key, org_id = sk.openai_settings_from_dot_env()
 
-    import os
+    # import os
     from dotenv import load_dotenv
-    with open('/mount/src/city-app/config.txt') as f:
-        api_key = f.read()
-        print(api_key)
+    # with open('/mount/src/city-app/config.txt') as f:
+      #   api_key = f.read()
+        # print(api_key)
 
-    load_dotenv(dotenv_path= '/mount/src/city-app/.env')
+    load_dotenv()
 
     api_key = os.getenv('OPENAI_API_KEY')
     org_id = None
-    print('api_key = ', api_key)
+    #print('api_key = ', api_key)
 
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
 
