@@ -126,12 +126,11 @@ if input_sent and button_1:
     import os
     from dotenv import load_dotenv
 
-    load_dotenv(dotenv_path=BASE_FOLDER + '.env')
+    load_dotenv(dotenv_path= '/mount/src/city-app/.env')
 
     api_key = os.getenv('OPENAI_API_KEY')
     org_id = None
     print('api_key = ', api_key)
-    openai.api_key_path = BASE_FOLDER + '.env'
 
     kernel.add_text_completion_service("dv", OpenAIChatCompletion("gpt-4", api_key, org_id))
 
@@ -142,6 +141,9 @@ if input_sent and button_1:
     summary_result = classifier(prompt)
     st.write("GPT-4 few-shot model says this represents ", summary_result)
 
+
+
+    openai.api_key_path = '/mount/src/city-app/.env'
  # Topic modeling ----------------------------------   
 
 
