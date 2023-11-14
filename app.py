@@ -47,7 +47,7 @@ st.title("Try our algorithm")
 # single text
 st.subheader("Single sentence analysis")
 
-st.write('the path to the file ', os.path.abspath(".env"))
+# st.write('the path to the file ', os.path.abspath(".env"))
 
 def bertopic_model():
 
@@ -130,9 +130,9 @@ if input_sent and button_1:
       #   api_key = f.read()
         # print(api_key)
 
-    load_dotenv()
+    # load_dotenv()
 
-    api_key = os.getenv('OPENAI_API_KEY')
+    api_key = st.secrets['OPENAI_API_KEY']
     org_id = None
     #print('api_key = ', api_key)
 
